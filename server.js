@@ -7,6 +7,21 @@ const express = require('express');
 const morgan = require('morgan');
 const { Pool } = require('pg');
 
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('An error has occured connecting to the database', err.stack);
+  } else {
+    console.log('Connection to database successful', res.rows[0].now);
+  }
+});
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 
