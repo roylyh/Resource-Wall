@@ -6,6 +6,8 @@ const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 const { Pool } = require('pg');
+const db = require('./db');
+const bodyParser = require('body-parser');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -44,9 +46,10 @@ app.use(express.static('public'));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api');
+const userApiRoutes = require('./routes/routes');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const bodyParser = require('body-parser');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -69,4 +72,21 @@ app.listen(PORT, () => {
 });
 
 
-// GET Functions
+// Endpoint Functions
+
+// Login
+app.post('/login', async (req, res) => {
+  const {user, password} = req.body;
+
+  //to make sure user and password have a value
+  if(!user || password) {
+    return res.status(400).json({ message: 'Email and password are required'})
+  }
+
+  // check email and password are valid
+  if (email !== 'testuser' || password !== 'password') {
+    return res.status(401).json({ message: 'Invalid email or password'});
+  }
+
+  res.join({message: 'Login was successful'});
+})
