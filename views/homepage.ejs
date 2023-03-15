@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Resource Wall</title>
-    <% include ../partials/header %>
+    <% include partials/header %>
   </head>
   <body>
     <h1> Featured Resources </h1>
@@ -17,6 +17,10 @@
           <p>Comments: <%= resource.comments.length %></p>
         </div>
       <% }) %>
-    </ul>
+    <form action="/resources/search" method="get">
+      <input type="text" name="searchword" placeholder="Search resources...">
+      <button type="submit">Search</button>
+    </form>
   </body>
 </html>
+

@@ -6,6 +6,7 @@ const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
+const resourceQueries = require('./db/queries/resource-queries');
 
 const bodyParser = require('body-parser');
 
@@ -55,8 +56,18 @@ app.use('/login', loginRoutes)
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get('/', (req, res) => {
-  res.render('homepage');
+// app.get('/', (req, res) => {
+//   res.render('homepage');
+// });
+
+app.get('/', async (req, res) => {
+  try {
+    const resources = await resourceQueries.getAllResources();
+    res.render('homepage', { resources });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error');
+  }
 });
 
 app.listen(PORT, () => {

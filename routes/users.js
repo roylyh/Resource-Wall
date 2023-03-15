@@ -54,7 +54,7 @@ router.post('/register', async(req, res) => {
         return res.redirect("/index");
       }
     }
-    
+
     const user = {...req.body};
     const resUser2 = await userQueries.getUserByEmail(user.email);
     if (resUser2) {
