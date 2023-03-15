@@ -12,3 +12,18 @@ const getAllUsers = () => {
 };
 
 exports.getAllUsers = getAllUsers;
+
+const getUser = (user) => {
+  const queryString = `
+    SELECT * FROM users
+    WHERE user = $1;
+    `;
+  const queryParams = [user]
+
+  return pool.query(queryString, queryParams)
+    .then(res => {
+      return res.rows[0]
+    })
+}
+
+exports.getUser = getUser;

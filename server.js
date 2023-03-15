@@ -40,12 +40,15 @@ app.use(cookieSession({
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require('./routes/users');
 const resourcesRoutes = require('./routes/resources');
-
+const loginRoutes = require('./routes/login')
+// const logoutRoutes = require('./routes/logout')
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/users', usersRoutes);
 app.use('/resources', resourcesRoutes);
+app.use('/login', loginRoutes)
+// app.use('/logout', logoutRoutes)
 // Note: mount other resources here, using the same pattern above
 
 // Home page
