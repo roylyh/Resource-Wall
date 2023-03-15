@@ -130,6 +130,7 @@ router.get('/search/:searchword', (req, res) => {
   resourceQueries.searchResources(req.params.searchword)
     .then(response => {
       res.json(response);
+      console.log('there is a response', response)
     })
     .catch(err => {
       console.log("err:", err);
