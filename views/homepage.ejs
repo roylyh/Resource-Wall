@@ -11,10 +11,10 @@
         <div class="resource">
           <h2><%= resource.title %></h2>
           <p><%= resource.description %></p>
-          <p><%= resource.url %></p>
+          <p><a href="<%= resource.url %>"><%= resource.url %></a></p>
           <p>Ratings: <%= resource.ratings %></p>
           <p>Likes: <%= resource.likes %></p>
-          <p>Comments: <%= resource.comments.length %></p>
+          <p>Comments: <%= resource.comments %></p>
         </div>
       <% }) %>
     <form action="/resources/search" method="get">
