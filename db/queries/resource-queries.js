@@ -5,9 +5,6 @@ const getAllResouces = () => {
   return db.query(queryString,null,(res) => {
     return res.rows;
   }
-  ).catch((err) => {
-    console.log(err.message);
-  }
   );
 };
 
@@ -18,9 +15,6 @@ const getMyfavorites = (userId) => {
   const queryParam = [userId];
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
-  }
-  ).catch((err) => {
-    console.log(err.message);
   }
   );
 };
@@ -33,9 +27,6 @@ const getMyresources = (userId) => {
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
   }
-  ).catch((err) => {
-    console.log(err.message);
-  }
   );
 };
 
@@ -46,9 +37,6 @@ const getComments = (resourceId) => {
   const queryParam = [resourceId];
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
-  }
-  ).catch((err) => {
-    console.log(err.message);
   }
   );
 };
@@ -61,9 +49,6 @@ const likeResource = (resourceId, userId) => {
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
   }
-  ).catch((err) => {
-    console.log(err.message);
-  }
   );
 };
 
@@ -75,10 +60,58 @@ const rateResource = (resourceId, rate, userId) => {
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
   }
-  ).catch((err) => {
-    console.log(err.message);
-  }
   );
 };
 
 exports.rateResource = rateResource;
+
+const addResource = (resource, userId) => {
+  const queryString = `INSERT INTO resources (user_id, topic_id, img_url, url, title, description) 
+  VALUES ( $1, $2, $3, $4, $5, $6) RETURNING *;`;
+  const queryParam = [userId, resource.topic_id, resource.img_url, resource.url, resource.title, resource.description];
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.addResource = addResource;
+
+const addComment = (comment, userId) => {
+  const queryString = `INSERT INTO comments (user_id, resource_id, comment) 
+  VALUES ( $1, $2, $3) RETURNING *;`;
+  const queryParam = [userId, comment.resource_id, comment.comment];
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.addComment = addComment;
+
+const searchResources = (searchword) => {
+  const queryString = `select * from resources where title like $1;`;
+  const queryParam = ['%' + searchword + '%'];
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.searchResources = searchResources;
+
+const getResourcesByTopic = (topic) => {
+  let queryString = `select * from resources where topic_id = $1`;
+  const queryParam = [ topic.topic_id ];
+  if (topic.userId) {
+    queryParam.push(topic.userId);
+    queryString += `AND user_id = ${topic.userId}`;
+  }
+
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.getResourcesByTopic = getResourcesByTopic;

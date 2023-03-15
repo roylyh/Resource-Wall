@@ -75,9 +75,13 @@ response: a product object if a valid identifier was provided. {like}
 request: rate resource_id and userId  
 response: a product object if a valid identifier was provided. {rate}  
 
-.post /searchresouce
-request: {searchword} and userId
+.get /searchresouces/:searchword
+request: searchword
 response: {[{resource1},{resource2}]} 
+
+.get /getResourcesByTopic/:topic_id/:type
+request: topic_id and type (0: return all; 1: filter by userId)
+response: {[{resource1},{resource2}]}
   
 ## user-route  
 prefix /user  
