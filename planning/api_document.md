@@ -55,7 +55,7 @@ parameters:
 userId (from cookie)  
 response: {[{resource1},{resource2}]}  
   
-.get /allcomments  
+.get /allcomments/:resource_id  
 request: resource_id  
 response: {[{comment1}, {comment2}]}  
   
@@ -67,11 +67,11 @@ response: {resource}
 request: {comment} and userId  
 response: {comment}  
   
-.get /likeresource/:id  
+.get /likeresource/:resource_id  
 request: resource_id and userId  
 response: a product object if a valid identifier was provided. {like}  
   
-.get /rateresource/:id/:rate  
+.get /rateresource/:resource_id/:rate  
 request: rate resource_id and userId  
 response: a product object if a valid identifier was provided. {rate}  
 
