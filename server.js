@@ -56,7 +56,7 @@ app.use('/login', loginRoutes)
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('homepage');
 });
 
 app.listen(PORT, () => {
