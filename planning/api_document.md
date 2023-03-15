@@ -84,7 +84,7 @@ request: topic_id and type (0: return all; 1: filter by userId)
 response: {[{resource1},{resource2}]}
   
 ## user-route  
-prefix /user  
+prefix /users  
   
 .get /login/:id  
 request: id  
@@ -97,3 +97,7 @@ response:{user}
 .post /logout  
 request: userId  
 response: redirect to the main page
+
+.post /login
+request: email password
+response: redirect to the main page 

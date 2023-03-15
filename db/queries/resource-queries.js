@@ -1,6 +1,6 @@
 const db = require('../connection');
 
-const getAllResouces = () => {
+const getAllResources = () => {
   const queryString = `select * from resources;`;
   return db.query(queryString,null,(res) => {
     return res.rows;
@@ -8,7 +8,7 @@ const getAllResouces = () => {
   );
 };
 
-exports.getAllResouces = getAllResouces;
+exports.getAllResources = getAllResources;
 
 const getMyfavorites = (userId) => {
   const queryString = `select x.* from resources x join likes y on x.id = y.resource_id where y.user_id = $1;`;

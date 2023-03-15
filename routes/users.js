@@ -7,90 +7,145 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const userQueries = require('../db/queries/user-queries');
+const bcrypt = require("bcryptjs");
 
-router.get('/allusers', (req, res) => {
-  userQueries.getAllUsers()
-  .then(response => {
-    res.json(response);
-  })
-  .catch(err => {
-    res
-      .status(500)
-      .json({ error: err.message });
-  });
+router.get('/login/:id', (req, res) => {
+  req.session.userId = req.params.id;
+  res.redirect("/index");
 });
 
-// home page
-router.get('/', async (req, res) => {
-  try {
-    const resources = await resourceQueries.getAllResources();
-    res.render('../views/homepage', { resources });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+router.post('/login', (req, res) => {
+  const {email, password} = req.body;
+  if (!email || !password) {
+    res.status(400).json({ message: 'Email and password are required'});
+  } else {
+    userQueries.getUserByEmail(email).then(
+      (user) => {
+        if (user) {
+          if (bcrypt.compareSync(password, user.password)) {
+            req.session.userID = user.id;
+            console.log("login successfully");
+            res.redirect("/index");
+          } else {
+            res.status(400).json({message: 'Password is wrong!'});
+          }
+        } else {
+          res.status(400).json({message: 'no user found'});
+        }
+      }
+    ).catch(
+      (err) => {
+        res.status(500).json({error: err.message});
+      }
+    );
   }
 });
 
-// need to reorganize routing to create more readability after
 
-// retrieve all resources
-router.get('/resources', (req, res) => {
+router.post('/register', async(req, res) => {
+  const userId = req.session.userId;
+  console.log("userId:", userId);
+  try {
+    if (userId) {
+      const resUser1 = await userQueries.getUserById(userId);
+      if (resUser1) {
+        console.log("resUser is not ");
+        return res.redirect("/index");
+      }
+    }
+    
+    const user = {...req.body};
+    const resUser2 = await userQueries.getUserByEmail(user.email);
+    if (resUser2) {
+      console.log("resUser exists ");
+      return res.status(400).json({message: 'email exists!'});
+    }
+
+    const hashedPassword = bcrypt.hashSync(user.password, 10);
+    user.password = hashedPassword;
+    const resUser3 = await userQueries.addUser(user);
+    req.session.userId = resUser3[0].id;
+    res.json(resUser3);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
 });
 
-// create a new resource
-router.post('/resources', (req, res) => {
+router.post('/logout', (req, res) => {
+  res.clearCookie("session").clearCookie("session.sig").redirect("/users/login");
 });
 
-// retrieve a specific resource by ID
-router.get('/resources/:id', (req, res) => {
-});
+// home page
+// router.get('/', async(req, res) => {
+//   try {
+//     const resources = await resourceQueries.getAllResources();
+//     res.render('../views/homepage', { resources });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
 
-// update a specific resource by ID
-router.put('/resources/:id', (req, res) => {
-});
+// // need to reorganize routing to create more readability after
 
-// delete a specific resource by ID
-router.delete('/resources/:id', (req, res) => {
-});
+// // retrieve all resources
+// router.get('/resources', (req, res) => {
+// });
 
-// retrieve all resources created by a specific user
-router.get('/users/:id/resources', (req, res) => {
-});
+// // create a new resource
+// router.post('/resources', (req, res) => {
+// });
 
-// retrieve all resources associated with a specific topic
-router.get('/topics/:id/resources', (req, res) => {
-});
+// // retrieve a specific resource by ID
+// router.get('/resources/:id', (req, res) => {
+// });
 
-// add a new comment to a resource
-router.post('/resources/:id/comments', (req, res) => {
-});
+// // update a specific resource by ID
+// router.put('/resources/:id', (req, res) => {
+// });
 
-// update an existing comment in the database
-router.put('/comments/:id', (req, res) => {
-});
+// // delete a specific resource by ID
+// router.delete('/resources/:id', (req, res) => {
+// });
 
-// delete a comment from the database
-router.delete('/comments/:id', (req, res) => {
-});
+// // retrieve all resources created by a specific user
+// router.get('/users/:id/resources', (req, res) => {
+// });
 
-// add a new rating to a resource
-router.post('/resources/:id/ratings', (req, res) => {
-});
+// // retrieve all resources associated with a specific topic
+// router.get('/topics/:id/resources', (req, res) => {
+// });
 
-// update an existing rating in the database
-router.put('/ratings/:id', (req, res) => {
-});
+// // add a new comment to a resource
+// router.post('/resources/:id/comments', (req, res) => {
+// });
 
-// delete a rating from the database
-router.delete('/ratings/:id', (req, res) => {
-});
+// // update an existing comment in the database
+// router.put('/comments/:id', (req, res) => {
+// });
 
-// add a like to a resource
-router.post('/resources/:id/likes', (req, res) => {
-});
+// // delete a comment from the database
+// router.delete('/comments/:id', (req, res) => {
+// });
 
-// remove a like from a resource
-router.delete('/likes/:id', (req, res) => {
-});
+// // add a new rating to a resource
+// router.post('/resources/:id/ratings', (req, res) => {
+// });
+
+// // update an existing rating in the database
+// router.put('/ratings/:id', (req, res) => {
+// });
+
+// // delete a rating from the database
+// router.delete('/ratings/:id', (req, res) => {
+// });
+
+// // add a like to a resource
+// router.post('/resources/:id/likes', (req, res) => {
+// });
+
+// // remove a like from a resource
+// router.delete('/likes/:id', (req, res) => {
+// });
 
 module.exports = router;
