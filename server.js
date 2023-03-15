@@ -64,18 +64,18 @@ app.listen(PORT, () => {
 // Endpoint Functions
 
 // Login
-app.post('/login', async(req, res) => {
-  const {user, password} = req.body;
+// app.post('/login', async(req, res) => {
+//   const {user, password} = req.body;
 
-  //to make sure user and password have a value
-  if (!user || !password) {
-    return res.status(400).json({ message: 'Email and password are required'});
-  }
+//   //to make sure user and password have a value
+//   if (!user || !password) {
+//     return res.status(400).json({ message: 'Email and password are required'});
+//   }
 
-  // check email and password are valid
-  // if (email !== 'testuser' || password !== 'password') {
-  //   return res.status(401).json({ message: 'Invalid email or password'});
-  // }
+//   // check email and password are valid
+//   // if (email !== 'testuser' || password !== 'password') {
+//   //   return res.status(401).json({ message: 'Invalid email or password'});
+//   // }
 
-  res.join({message: 'Login was successful'});
-});
+//   res.json({message: 'Login was successful'});
+// });
