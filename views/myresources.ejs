@@ -1,0 +1,24 @@
+<% include partials/header %>
+
+<div class="container">
+  <h1>My Resources</h1>
+
+  <% if (resources.length > 0) { %>
+    <% resources.forEach((resource) => { %>
+      <div class="content-card">
+        <div class="content-card_title">
+          <h2><%= resource.title %></h2>
+        </div>
+        <div class="content-card_details">
+          <p><%= resource.description %></p>
+          <div class="content-card_ratings">
+            <p><i class="fas fa-thumbs-up"></i> <%= resource.likes %> likes</p>
+            <p><i class="fas fa-comments"></i><%= resource.comment_count %> comments</p>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  <% } else { %>
+    <p>You have not created any resources yet.</p>
+  <% } %>
+</div>
