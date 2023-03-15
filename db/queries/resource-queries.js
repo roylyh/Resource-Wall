@@ -117,8 +117,8 @@ exports.addComment = addComment;
 // exports.getResourcesByTopic = getResourcesByTopic;
 
 const searchResources = (topicOrDescription, userId) => {
-  const searchTerm = `%${topicOrDescription}`;
-  let queryString = `SELECT * FROM resources WHERE (topic_id IN (SELECT id FROM topics WHERE name LIKE $1) OR description LIKE $1) `;
+  const searchTerm = `%${topicOrDescription}%`;
+  let queryString = `SELECT * FROM resources WHERE title LIKE $1 OR description LIKE $1 `;
   const queryParams = [searchTerm];
   if (userId) {
     queryString += `And user_id = $2`;

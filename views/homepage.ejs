@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Resource Wall</title>
-    <% include partials/header %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/scripts/app.js"></script>
   </head>
   <body>
+    <% include partials/header %>
     <h1> Featured Resources </h1>
     <ul>
       <% resources.forEach((resource) => { %>
@@ -17,10 +19,12 @@
           <p>Comments: <%= resource.comments %></p>
         </div>
       <% }) %>
+    </ul>
     <form action="/resources/search" method="get">
       <input type="text" name="searchword" placeholder="Search resources...">
       <button type="submit">Search</button>
     </form>
+    <div id="resources"></div>
   </body>
 </html>
 

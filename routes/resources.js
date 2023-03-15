@@ -126,7 +126,7 @@ router.post('/addcomment', (req, res) => {
     });
 });
 
-router.get('/searchresouces/:searchword', (req, res) => {
+router.get('/search/:searchword', (req, res) => {
   resourceQueries.searchResources(req.params.searchword)
     .then(response => {
       res.json(response);
