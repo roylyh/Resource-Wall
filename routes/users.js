@@ -7,9 +7,28 @@
 
 const express = require('express');
 const router  = express.Router();
+const userQueries = require('../db/queries/users');
 
-router.get('/', (req, res) => {
-  res.render('users');
+router.get('/allusers', (req, res) => {
+  userQueries.getAllUsers()
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => {
+    res
+      .status(500)
+      .json({ error: err.message });
+  });
+});
+
+// home page
+router.get('/', async (req, res) => {
+  try {
+    const resources = await resourceQueries.getAllResources();
+    res.render('../views/homepage', { resources });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // need to reorganize routing to create more readability after
@@ -73,6 +92,5 @@ router.post('/resources/:id/likes', (req, res) => {
 // remove a like from a resource
 router.delete('/likes/:id', (req, res) => {
 });
-
 
 module.exports = router;

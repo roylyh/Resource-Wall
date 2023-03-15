@@ -68,7 +68,7 @@ app.post('/login', async(req, res) => {
   const {user, password} = req.body;
 
   //to make sure user and password have a value
-  if (!user || password) {
+  if (!user || !password) {
     return res.status(400).json({ message: 'Email and password are required'});
   }
 
