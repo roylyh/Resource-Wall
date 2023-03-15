@@ -143,11 +143,11 @@ router.get('/getResourcesByTopic/:topic_id/:type', (req, res) => {
   const topic = { topic_id: req.params.topic_id };
   const userId = req.session.userId;
   // const userId = 2;
-  
+
   if (req.params.type === 1) {
     topic.userId = userId;
   }
-  
+
   resourceQueries.getResourcesByTopic(topic)
     .then(response => {
       res.json(response);
