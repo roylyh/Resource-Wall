@@ -21,10 +21,14 @@ router.get('/allusers', (req, res) => {
   });
 });
 
-router.get
-
-router.get('/', (req, res) => {
-  res.render('users');
+// home page
+router.get('/', async (req, res) => {
+  try {
+    const resources = await resourceQueries.getAllResources();
+    res.render('../views/homepage', { resources });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // need to reorganize routing to create more readability after

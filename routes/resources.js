@@ -3,9 +3,9 @@ const router  = express.Router();
 const resourceQueries = require('../db/queries/resource-queries');
 
 router.get('/allresources', (req, res) => {
-  resourceQueries.getAllResouces()
-    .then(response => {
-      res.json(response);
+  resourceQueries.getAllResources()
+    .then(resources => {
+      res.render('allresources', { resources });
     })
     .catch(err => {
       res
