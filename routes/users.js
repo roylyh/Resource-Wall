@@ -12,7 +12,7 @@ const bcrypt = require("bcryptjs");
 
 router.get('/login/:id', (req, res) => {
   req.session.userId = req.params.id;
-  res.redirect("/index");
+  res.redirect("/");
 });
 
 router.post('/login', (req, res) => {
