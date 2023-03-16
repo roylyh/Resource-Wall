@@ -22,11 +22,7 @@ router.get('/allresources', (req, res) => {
     });
 });
 
-router.get('/submit-resource', async(req, res) => {
-  res.render("submit-resource");
-});
-
-router.post('/submit-resource/', (req, res) => {
+router.post('/addresource/', (req, res) => {
   const userId = req.session.userId;
   const resource = {...req.body};
   resourceQueries.addResource(resource, userId)
@@ -34,7 +30,6 @@ router.post('/submit-resource/', (req, res) => {
       res.redirect('/');
     })
     .catch((err) => {
-      console.error(err);
       res.status(500).json({ error: err.message });
     });
 });
