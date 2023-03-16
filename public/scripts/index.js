@@ -31,7 +31,6 @@ $(() => {
       );
   }
 
-  $("#indexli").addclass("active");
 }
 );
 

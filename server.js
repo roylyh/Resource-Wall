@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 
 app.get('/index', (req, res) => {
   if (!req.session.userId) {
-    return res.render("/users/login");
+    return res.render("/login");
   }
   return res.render('index');
 });
