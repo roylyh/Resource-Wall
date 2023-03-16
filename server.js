@@ -41,14 +41,14 @@ app.use(cookieSession({
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require('./routes/users');
 const resourcesRoutes = require('./routes/resources');
-const loginRoutes = require('./routes/login')
+const loginRoutes = require('./routes/login');
 // const logoutRoutes = require('./routes/logout')
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/users', usersRoutes);
 app.use('/resources', resourcesRoutes);
-app.use('/login', loginRoutes)
+app.use('/login', loginRoutes);
 // app.use('/logout', logoutRoutes)
 // Note: mount other resources here, using the same pattern above
 
@@ -60,7 +60,7 @@ app.use('/login', loginRoutes)
 //   res.render('homepage');
 // });
 
-app.get('/', async (req, res) => {
+app.get('/', async(req, res) => {
   try {
     const resources = await resourceQueries.getAllResources();
     res.render('homepage', { resources });
@@ -75,21 +75,3 @@ app.listen(PORT, () => {
 });
 
 
-// Endpoint Functions
-
-// Login
-// app.post('/login', async(req, res) => {
-//   const {user, password} = req.body;
-
-//   //to make sure user and password have a value
-//   if (!user || !password) {
-//     return res.status(400).json({ message: 'Email and password are required'});
-//   }
-
-//   // check email and password are valid
-//   // if (email !== 'testuser' || password !== 'password') {
-//   //   return res.status(401).json({ message: 'Invalid email or password'});
-//   // }
-
-//   res.json({message: 'Login was successful'});
-// });
