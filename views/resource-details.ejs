@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Resource Wall</title>
+
+  <!-- Required meta tags -->
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+	<!-- External CSS -->
+	<link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+	<link rel="stylesheet" href="/vendor/border-box.css" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,900|Ubuntu&display=swap" rel="stylesheet">
+
+	<!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- <link rel="stylesheet" href="/styles/main.css" /> -->
+  <link rel="stylesheet" href="/styles/layout.css" />
+	<link rel="stylesheet" href="/styles/resource.css" />
+	
+  
+
+  
+  
+</head>
+
+<body>
+
+  <h1 style = "text-align: center;">Resource Detail</h1>
+  
+  <div class="container">
+		<div class="card">
+			<div class="container-fliud">
+				<div class="wrapper row">
+					<div class="preview col-md-6">
+						<div class="preview-pic tab-content">
+							<div class="tab-pane active" id="pic-1"><img src=<%= resource[0].img_url %> width="100%"/></div>
+							<hr>
+							<form id="comment-form">
+								<div class="form-group">
+									<label for="comment-textarea"><h5>new comment:</h5></label>
+									<textarea class="form-control" id="comment-textarea" rows="3" name="comment"></textarea>
+									<input name="resource_id" type="hidden" value=<%= resource[0].id %>>
+								</div>
+								&nbsp;&nbsp;<span>99</span>
+								<button type="submit" class="btn btn-primary btn-sm float-right" id="add-comment-button">Add comment</button>
+							</form>
+						</div>
+					</div>
+					<div class="details col-md-6">
+						<h3 class="product-title"><%= resource[0].title %></h3>
+						<div class="rating">
+								<%= resource[0].rating || 0 %>&nbsp;<span class="fa-solid fa-star"></span>&nbsp;&nbsp;<span id="review-no"></span>&nbsp;comments						
+						</div>
+						<p class="resource-description"><%= resource[0].description %></p>
+						<h4>URL</h4>
+						<a href=<%= resource[0].url %>><%= resource[0].url %></a>
+
+						<h4>Type</h4>
+						<p><%= resource[0].topic %></p>
+
+						<div class="star-rating">
+							<span class="fa-regular fa-star" data-rating="1"></span>
+							<span class="fa-regular fa-star" data-rating="2"></span>
+							<span class="fa-regular fa-star" data-rating="3"></span>
+							<span class="fa-regular fa-star" data-rating="4"></span>
+							<span class="fa-regular fa-star" data-rating="5"></span>&nbsp;&nbsp;
+							<input type="hidden" name="rating-value" class="rating-value">&nbsp;&nbsp;
+							<button class="rate btn btn-primary btn-sm" type="button" resourceid=<%= resource[0].id %>>rate</button>
+							<button class="like btn btn-lg float-right" type="button" resourceid=<%= resource[0].id %>><span class="fa fa-heart"></span></button>
+						</div>
+						<hr>
+						<h4 id="comment-title">Comments</h4>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/network.js"></script>
+	<script defer src="/scripts/detail.js"></script>
+</body>
+
+</html>

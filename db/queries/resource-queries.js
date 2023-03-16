@@ -125,9 +125,22 @@ const searchResources = (topicOrDescription, userId) => {
     queryParams.push(userId);
   }
   return db.query(queryString, queryParams, (res) => {
-        return res.rows;
-      })
-  .catch(err => console.log(err));
-}
+    return res.rows;
+  })
+    .catch(err => console.log(err));
+};
 
 exports.searchResources = searchResources;
+
+
+const getSingleResource = (resource_id) => {
+  let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic from resources x join topics y on x.topic_id = y.id where x.id = $1; `;
+  const queryParam = [ resource_id ];
+
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.getSingleResource = getSingleResource;

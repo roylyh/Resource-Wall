@@ -52,14 +52,6 @@ app.use('/login', loginRoutes);
 // app.use('/logout', logoutRoutes)
 // Note: mount other resources here, using the same pattern above
 
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
-// app.get('/', (req, res) => {
-//   res.render('homepage');
-// });
-
 app.get('/', async(req, res) => {
   try {
     const resources = await resourceQueries.getAllResources();
