@@ -14,6 +14,23 @@ router.get('/allresources', (req, res) => {
     });
 });
 
+router.get('/submit-resource', async(req, res) => {
+  res.render("submit-resource")
+});
+
+router.post('/submit-resource/', (req, res) => {
+  const userId = req.session.userId;
+  const resource = {...req.body};
+  resourceQueries.addResource(resource, userId)
+    .then((response) => {
+      res.redirect('/');
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    });
+});
+
 router.get('/myfavorites', (req, res) => {
   const userId = req.session.userId;
   // const userId = 2;
@@ -85,21 +102,6 @@ router.get('/rateresource/:resource_id/:rate', (req, res) => {
   const userId = req.session.userId;
   // const userId = 2;
   resourceQueries.rateResource(req.params.resource_id, req.params.rate, userId)
-    .then(response => {
-      res.json(response);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
-});
-
-router.post('/addresource', (req, res) => {
-  const userId = req.session.userId;
-  // const userId = 2;
-  const resource = {...req.body};
-  resourceQueries.addResource(resource, userId)
     .then(response => {
       res.json(response);
     })

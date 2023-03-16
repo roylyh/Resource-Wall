@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { getUser } = require('../db/queries/user-queries')
+const { getUserByEmail } = require('../db/queries/user-queries')
 
 router.get('/', async(req, res) => {
     res.render("login")
@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
-  getUsersFromEmail(email)
+  getUserByEmail(email)
     .then((user) => {
       console.log("checking user:", user)
       if (!user) {
