@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
           if (bcrypt.compareSync(password, user.password)) {
             req.session.userID = user.id;
             console.log("login successfully");
-            res.redirect("/homepage");
+            res.redirect("index");
           } else {
             res.status(400).json({message: 'Password is wrong!'});
           }
