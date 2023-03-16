@@ -53,29 +53,31 @@ app.use('/resources', resourcesRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  res.render('index');
+  if (!req.session.userId) {
+    return res.render("/users/login");
+  }
+  return res.render('index');
+});
+
+app.get('/index', (req, res) => {
+  if (!req.session.userId) {
+    return res.render("/users/login");
+  }
+  return res.render('index');
+});
+
+app.get('/login', (req, res) => {
+  return res.render('login');
+});
+
+app.get('/myresources', (req, res) => {
+  return res.render('myresources');
+});
+
+app.get('/myfavorites', (req, res) => {
+  return res.render('myfavorites');
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-
-// Endpoint Functions
-
-// Login
-// app.post('/login', async(req, res) => {
-//   const {user, password} = req.body;
-
-//   //to make sure user and password have a value
-//   if (!user || !password) {
-//     return res.status(400).json({ message: 'Email and password are required'});
-//   }
-
-//   // check email and password are valid
-//   // if (email !== 'testuser' || password !== 'password') {
-//   //   return res.status(401).json({ message: 'Invalid email or password'});
-//   // }
-
-//   res.json({message: 'Login was successful'});
-// });

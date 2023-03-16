@@ -33,7 +33,7 @@ const getMyresources = (userId) => {
 exports.getMyresources = getMyresources;
 
 const getComments = (resourceId) => {
-  const queryString = `select * from comments where resource_id = $1;`;
+  const queryString = `select x.*, y.name from comments x join users y on x.user_id = y.id where x.resource_id = $1 order by x.id;`;
   const queryParam = [resourceId];
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
@@ -101,7 +101,7 @@ const searchResources = (searchword) => {
 exports.searchResources = searchResources;
 
 const getResourcesByTopic = (topic) => {
-  let queryString = `select * from resources where topic_id = $1`;
+  let queryString = `select * from resources where topic_id = $1 `;
   const queryParam = [ topic.topic_id ];
   if (topic.userId) {
     queryParam.push(topic.userId);
@@ -115,3 +115,15 @@ const getResourcesByTopic = (topic) => {
 };
 
 exports.getResourcesByTopic = getResourcesByTopic;
+
+const getSingleResource = (resource_id) => {
+  let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic from resources x join topics y on x.topic_id = y.id where x.id = $1; `;
+  const queryParam = [ resource_id ];
+
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.getSingleResource = getSingleResource;
