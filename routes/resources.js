@@ -15,7 +15,7 @@ router.get('/allresources', (req, res) => {
 });
 
 router.get('/submit-resource', async(req, res) => {
-  res.render("submit-resource")
+  res.render("submit-resource");
 });
 
 router.post('/submit-resource/', (req, res) => {
@@ -71,16 +71,17 @@ router.get('/allcomments/:resource_id', (req, res) => {
     });
 });
 
-router.get('/allcomments/:resource_id', (req, res) => {
-  resourceQueries.getComments(req.params.resource_id)
-    .then(response => {
-      res.json(response);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+router.get('/allresources/:resource_id', async(req, res) => {
+  try {
+    console.log("getSingleResource");
+    const resource = await resourceQueries.getSingleResource(req.params.resource_id);
+    const templateVar = {resource};
+    console.log("templateVar:", templateVar);
+    res.render("resource-details",templateVar);
+  } catch (error) {
+    res.status(500)
+      .json({ error: error.message });
+  }
 });
 
 router.get('/likeresource/:resource_id', (req, res) => {
@@ -132,7 +133,7 @@ router.get('/search/:searchword', (req, res) => {
   resourceQueries.searchResources(req.params.searchword)
     .then(response => {
       res.json(response);
-      console.log('there is a response', response)
+      console.log('there is a response', response);
     })
     .catch(err => {
       console.log("err:", err);
