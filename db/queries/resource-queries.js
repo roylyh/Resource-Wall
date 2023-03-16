@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 const getAllResources = () => {
-  const queryString = `select * from resources;`;
+  const queryString = `select * from resources order by id;`;
   return db.query(queryString,null,(res) => {
     return res.rows;
   }
@@ -22,7 +22,7 @@ const getMyfavorites = (userId) => {
 exports.getMyfavorites = getMyfavorites;
 
 const getMyresources = (userId) => {
-  const queryString = `select * from resources where user_id = $1;`;
+  const queryString = `select * from resources where user_id = $1 order by id desc;`;
   const queryParam = [userId];
   return db.query(queryString,queryParam,(res) => {
     return res.rows;

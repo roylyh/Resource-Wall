@@ -17,6 +17,7 @@ const loadComments = function(resourceid) {
       </div>`;
         $('#comment-title').after($commentItem);
       });
+      $("#review-no").text(res.length);
     }
   );
 };

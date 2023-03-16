@@ -52,13 +52,6 @@ app.use('/resources', resourcesRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get('/', (req, res) => {
-  if (!req.session.userId) {
-    return res.render("/users/login");
-  }
-  return res.render('index');
-});
-
 app.get('/index', (req, res) => {
   if (!req.session.userId) {
     return res.render("/login");
@@ -76,6 +69,17 @@ app.get('/myresources', (req, res) => {
 
 app.get('/myfavorites', (req, res) => {
   return res.render('myfavorites');
+});
+
+app.get('/createresource', (req, res) => {
+  return res.render('createresource');
+});
+
+app.get('/', (req, res) => {
+  if (!req.session.userId) {
+    return res.render("/users/login");
+  }
+  return res.render('index');
 });
 
 app.listen(PORT, () => {

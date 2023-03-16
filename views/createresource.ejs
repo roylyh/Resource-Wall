@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Resource Wall</title>
+
+  <!-- Required meta tags -->
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <!-- <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" /> -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,900|Ubuntu&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles/layout.css" />
+  
+
+  
+  
+</head>
+
+<body>
+  <%- include('partials/_header2') %>
+
+  <h1 style = "text-align: center;">Create New Resource</h1>
+  
+  <div class="container">
+    <form id="new-resource-form">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputTitle">title</label>
+          <input type="text" class="form-control" id="inputTitle" placeholder="Title" name="title">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputTopic">topic</label>
+          <select id="inputState" class="form-control" name="topic_id">
+            <option value="1"  selected>Education</option>
+            <option value="2" >Animals</option>
+            <option value="3" >Sports</option>
+            <option value="4" >Videos</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputImgUrl">Image URL</label>
+        <input type="text" class="form-control" id="inputImgUrl" placeholder="New Image URL" name="img_url">
+      </div>
+      <div class="form-group">
+        <label for="inputUrl">URL</label>
+        <input type="text" class="form-control" id="inputUrl" placeholder="New URL" name="url">
+      </div>
+      <div class="form-group">
+        <label for="inputDescription">Description</label>
+				<textarea class="form-control" id="inputDescription" rows="3" name="description" placeholder="Description"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Resource</button>
+    </form>
+  </div>
+  
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+    integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="/scripts/network.js"></script>
+  <script defer src="/scripts/create.js"></script>
+
+</body>
+
+</html>
