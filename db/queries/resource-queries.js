@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 const getAllResources = () => {
-  const queryString = `select * from resources;`;
+  const queryString = `select * from resources order by id;`;
   return db.query(queryString,null,(res) => {
     return res.rows;
   }
@@ -100,21 +100,23 @@ exports.addComment = addComment;
 
 // exports.searchResources = searchResources;
 
-// const getResourcesByTopic = (topic) => {
-//   let queryString = `select * from resources where topic_id = $1`;
-//   const queryParam = [ topic.topic_id ];
-//   if (topic.userId) {
-//     queryParam.push(topic.userId);
-//     queryString += `AND user_id = ${topic.userId}`;
-//   }
+const getResourcesByTopic = (topic) => {
+  let queryString = `select * from resources where topic_id = $1 `;
+  const queryParam = [ topic.topic_id ];
+  if (topic.userId) {
+    queryParam.push(topic.userId);
+    queryString += `AND user_id = ${topic.userId}`;
+  }
 
-//   return db.query(queryString,queryParam,(res) => {
-//     return res.rows;
-//   }
-//   );
-// };
+  queryString += " order by id;";
 
-// exports.getResourcesByTopic = getResourcesByTopic;
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.getResourcesByTopic = getResourcesByTopic;
 
 const searchResources = (topicOrDescription, userId) => {
   const searchTerm = `%${topicOrDescription}%`;

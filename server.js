@@ -52,14 +52,18 @@ app.use('/login', loginRoutes);
 // app.use('/logout', logoutRoutes)
 // Note: mount other resources here, using the same pattern above
 
-app.get('/', async(req, res) => {
-  try {
-    const resources = await resourceQueries.getAllResources();
-    res.render('homepage', { resources });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal server error');
+app.get('/', (req, res) => {
+  if (!req.session.userId) {
+    return res.render("/users/login");
   }
+  return res.render('index');
+});
+
+app.get('/index', (req, res) => {
+  if (!req.session.userId) {
+    return res.render("/login");
+  }
+  return res.render('index');
 });
 
 app.listen(PORT, () => {
