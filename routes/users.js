@@ -12,7 +12,11 @@ const bcrypt = require("bcryptjs");
 
 router.get('/login/:id', (req, res) => {
   req.session.userId = req.params.id;
+<<<<<<< HEAD
+  res.redirect("/views/homepage");
+=======
   res.redirect("/");
+>>>>>>> ff2817df4669b03bf82624d542f75358e3eaee4d
 });
 
 router.post('/login', (req, res) => {
@@ -26,7 +30,7 @@ router.post('/login', (req, res) => {
           if (bcrypt.compareSync(password, user.password)) {
             req.session.userID = user.id;
             console.log("login successfully");
-            res.redirect("/index");
+            res.redirect("/homepage");
           } else {
             res.status(400).json({message: 'Password is wrong!'});
           }
@@ -42,110 +46,35 @@ router.post('/login', (req, res) => {
   }
 });
 
+// router.post('/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   if (!email || !password) {
+//     res.status(400).json({ message: 'Email and password are required' });
+//   } else {
+//     try {
+//       const user = await userQueries.getUserByEmail(email);
+//       if (!user) {
+//         res.status(400).json({ message: 'No user found' });
+//       } else {
+//         // manually compare passwords
+//         const isMatch = password === user.password;
+//         if (isMatch) {
+//           req.session.userId = user.id;
+//           console.log('Login successful');
+//           res.redirect('/views/homepage.ejs');
+//         } else {
+//           res.status(400).json({ message: 'Password is wrong' });
+//         }
+//       }
+//     } catch (err) {
+//       res.status(500).json({ error: err.message });
+//     }
+//   }
+// });
 
-router.post('/register', async(req, res) => {
-  const userId = req.session.userId;
-  console.log("userId:", userId);
-  try {
-    if (userId) {
-      const resUser1 = await userQueries.getUserById(userId);
-      if (resUser1) {
-        console.log("resUser is not ");
-        return res.redirect("/index");
-      }
-    }
-
-    const user = {...req.body};
-    const resUser2 = await userQueries.getUserByEmail(user.email);
-    if (resUser2) {
-      console.log("resUser exists ");
-      return res.status(400).json({message: 'email exists!'});
-    }
-
-    const hashedPassword = bcrypt.hashSync(user.password, 10);
-    user.password = hashedPassword;
-    const resUser3 = await userQueries.addUser(user);
-    req.session.userId = resUser3[0].id;
-    res.json(resUser3);
-  } catch (error) {
-    res.status(500).json({error: error.message});
-  }
-});
 
 router.post('/logout', (req, res) => {
   res.clearCookie("session").clearCookie("session.sig").redirect("/users/login");
 });
-
-// home page
-// router.get('/', async(req, res) => {
-//   try {
-//     const resources = await resourceQueries.getAllResources();
-//     res.render('../views/homepage', { resources });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// // need to reorganize routing to create more readability after
-
-// // retrieve all resources
-// router.get('/resources', (req, res) => {
-// });
-
-// // create a new resource
-// router.post('/resources', (req, res) => {
-// });
-
-// // retrieve a specific resource by ID
-// router.get('/resources/:id', (req, res) => {
-// });
-
-// // update a specific resource by ID
-// router.put('/resources/:id', (req, res) => {
-// });
-
-// // delete a specific resource by ID
-// router.delete('/resources/:id', (req, res) => {
-// });
-
-// // retrieve all resources created by a specific user
-// router.get('/users/:id/resources', (req, res) => {
-// });
-
-// // retrieve all resources associated with a specific topic
-// router.get('/topics/:id/resources', (req, res) => {
-// });
-
-// // add a new comment to a resource
-// router.post('/resources/:id/comments', (req, res) => {
-// });
-
-// // update an existing comment in the database
-// router.put('/comments/:id', (req, res) => {
-// });
-
-// // delete a comment from the database
-// router.delete('/comments/:id', (req, res) => {
-// });
-
-// // add a new rating to a resource
-// router.post('/resources/:id/ratings', (req, res) => {
-// });
-
-// // update an existing rating in the database
-// router.put('/ratings/:id', (req, res) => {
-// });
-
-// // delete a rating from the database
-// router.delete('/ratings/:id', (req, res) => {
-// });
-
-// // add a like to a resource
-// router.post('/resources/:id/likes', (req, res) => {
-// });
-
-// // remove a like from a resource
-// router.delete('/likes/:id', (req, res) => {
-// });
 
 module.exports = router;

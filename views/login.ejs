@@ -8,14 +8,18 @@
     <%- include('partials/header') %>
 
     <h1>Login</h1>
-    <form action="/login" method="POST">
-      <label for="user">User:</label>
-      <input type="user" name="user" id="user" required>
+    <form action="/users/login" method="POST">
+      <label for="name">Username:</label>
+      <input type="text" name="name" id="name" required>
+      <br>
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" required>
       <br>
       <label for="password">Password:</label>
       <input type="password" name="password" id="password" required>
       <br>
       <button type="submit">Login</button>
+    </form>
     </form>
   </body>
 </html>
