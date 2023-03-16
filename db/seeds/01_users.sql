@@ -2,6 +2,6 @@
 INSERT INTO
   users (name, email, PASSWORD)
 VALUES
-  ('Spencer Hahmo', 'schahmo@gmail.com', 'password'),
+  ('guest', 'lhl@compass.com', '123'),
   ('John Smith', 'johnsmith99@gmail.com', 'password'),
   ('Iris Hwa', 'ihwa@gmail.com', 'password');

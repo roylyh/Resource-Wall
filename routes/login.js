@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
     .then((user) => {
       console.log("checking user:", user)
       if (!user) {
-        res.json({ error: 'Wrong user or password. Please try again!'});
+        res.json({ error: 'Wrong user. Please try again!'});
         return
       }
 
