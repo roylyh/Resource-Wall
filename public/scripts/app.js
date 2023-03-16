@@ -11,9 +11,11 @@ $(() => {
     .then((results) => {
       console.log('back from server', results);
 
-      // Remove any existing search results
+      // Remove any existing search results and current resources
       $('#search-results').empty();
       $('.resource').empty();
+
+      $('h1').text('Search Results');
 
       // Loop through each search result and create a new HTML element to display it
       for (const result of results) {
