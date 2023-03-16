@@ -6,7 +6,6 @@ const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-const resourceQueries = require('./db/queries/resource-queries');
 
 const bodyParser = require('body-parser');
 
@@ -64,6 +63,10 @@ app.get('/index', (req, res) => {
     return res.render("/login");
   }
   return res.render('index');
+});
+
+app.get('/myresources', (req, res) => {
+  return res.render('myresources');
 });
 
 app.listen(PORT, () => {

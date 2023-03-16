@@ -21,4 +21,3 @@ $("#row4").on("click",".view",function() {
   const resourceid = $(this).attr("resourceid");
   $(location).attr('href', `/resources/allresources/${resourceid}`);
 });
-

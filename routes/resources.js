@@ -2,6 +2,14 @@ const express = require('express');
 const router  = express.Router();
 const resourceQueries = require('../db/queries/resource-queries');
 
+router.use((req, res, next) => {
+  if (!req.session.userId) {
+    return res.redirect('/login');
+  }
+  console.log("inside the resource router");
+  next();
+});
+
 router.get('/allresources', (req, res) => {
   resourceQueries.getAllResources()
     .then(resources => {
@@ -33,7 +41,6 @@ router.post('/submit-resource/', (req, res) => {
 
 router.get('/myfavorites', (req, res) => {
   const userId = req.session.userId;
-  // const userId = 2;
   resourceQueries.getMyfavorites(userId)
     .then(response => {
       res.json(response);
@@ -47,7 +54,6 @@ router.get('/myfavorites', (req, res) => {
 
 router.get('/myresources', (req, res) => {
   const userId = req.session.userId;
-  // const userId = 2;
   resourceQueries.getMyresources(userId)
     .then(response => {
       res.json(response);
@@ -86,7 +92,6 @@ router.get('/allresources/:resource_id', async(req, res) => {
 
 router.get('/likeresource/:resource_id', (req, res) => {
   const userId = req.session.userId;
-  // const userId = 2;
   resourceQueries.likeResource(req.params.resource_id, userId)
     .then(response => {
       res.json(response);
@@ -101,7 +106,6 @@ router.get('/likeresource/:resource_id', (req, res) => {
 
 router.get('/rateresource/:resource_id/:rate', (req, res) => {
   const userId = req.session.userId;
-  // const userId = 2;
   resourceQueries.rateResource(req.params.resource_id, req.params.rate, userId)
     .then(response => {
       res.json(response);
@@ -115,7 +119,6 @@ router.get('/rateresource/:resource_id/:rate', (req, res) => {
 
 router.post('/addcomment', (req, res) => {
   const userId = req.session.userId;
-  // const userId = 2;
   const comment = {...req.body};
   resourceQueries.addComment(comment, userId)
     .then(response => {
@@ -146,7 +149,6 @@ router.get('/search/:searchword', (req, res) => {
 router.get('/getResourcesByTopic/:topic_id/:type', (req, res) => {
   const topic = { topic_id: req.params.topic_id };
   const userId = req.session.userId;
-  // const userId = 2;
 
   if (req.params.type === 1) {
     topic.userId = userId;
