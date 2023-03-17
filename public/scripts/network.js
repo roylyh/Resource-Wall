@@ -71,3 +71,12 @@ function searchResource(data) {
     url: `/resources/search/${data}`
   });
 }
+
+function updateResource(data) {
+  console.log("updateResource");
+  return $.ajax({
+    method: "POST",
+    url: `/resources/updateresource`,
+    data,
+  });
+}

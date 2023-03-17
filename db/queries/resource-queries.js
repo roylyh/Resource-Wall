@@ -146,3 +146,15 @@ const getSingleResource = (resource_id) => {
 };
 
 exports.getSingleResource = getSingleResource;
+
+const updateResource = (resource) => {
+  let queryString = `update resources set title=$1, topic_id=$2, img_url=$3, url=$4, description=$5 where id=$6 and user_id=$7 returning *;`;
+  const queryParam = [ resource.title, resource.topic_id, resource.img_url, resource.url, resource.description, resource.resourceid, resource.user_id ];
+
+  return db.query(queryString,queryParam,(res) => {
+    return res.rows;
+  }
+  );
+};
+
+exports.updateResource = updateResource;

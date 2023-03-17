@@ -26,8 +26,8 @@ router.post('/addresource/', (req, res) => {
   const userId = req.session.userId;
   const resource = {...req.body};
   resourceQueries.addResource(resource, userId)
-    .then(() => {
-      res.redirect('/');
+    .then((response) => {
+      res.json(response);
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
@@ -166,6 +166,22 @@ router.get('/editresource/:resourcd_id', async(req, res) => {
   console.log("resources:",resource);
   const templateVar = {resource};
   res.render("resource-edit",  templateVar);
+});
+
+router.post('/updateresource', (req, res) => {
+  const userId = req.session.userId;
+  const resource = {...req.body};
+  resource.user_id = userId;
+  resourceQueries.updateResource(resource)
+    .then(response => {
+      res.json(response);
+    })
+    .catch(err => {
+      console.log("err:", err);
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 });
 
 module.exports = router;
