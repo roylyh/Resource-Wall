@@ -17,7 +17,8 @@ $(() => {
               <p class="card-text">${resource.description}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary view" resourceid=${resource.id}>View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary view" resourceid=${resource.id}>View</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-sm btn-outline-secondary edit" resourceid=${resource.id}>Edit</button>
                 </div>
                 <small class="text-muted">9 mins</small>
               </div>
@@ -26,7 +27,7 @@ $(() => {
         </div>
       `;
     });
-    $("#row2").html($resItem);
+    $("#row5").html($resItem);
   });
 
   getMyfavorites().then((json) => {
@@ -56,6 +57,6 @@ $(() => {
         </div>
       `;
     });
-    $("#row1").html($resItem);
+    $("#row6").html($resItem);
   });
 });

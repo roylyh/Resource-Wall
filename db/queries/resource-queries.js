@@ -33,7 +33,7 @@ const getMyresources = (userId) => {
 exports.getMyresources = getMyresources;
 
 const getComments = (resourceId) => {
-  const queryString = `select * from comments where resource_id = $1;`;
+  const queryString = `select x.*, y.name from comments x join users y on x.user_id = y.id where x.resource_id = $1 order by x.id;`;
   const queryParam = [resourceId];
   return db.query(queryString,queryParam,(res) => {
     return res.rows;

@@ -1,0 +1,58 @@
+<%- include('partials/_head') %>
+
+  <body>
+    <%- include('partials/_header') %>
+
+      <h1 style="text-align: center">Edit my Resource</h1>
+
+      <div class="container">
+        <form id="new-resource-form">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputTitle">title</label>
+              <input type="text" class="form-control" id="inputTitle" placeholder="Title" name="title"
+              value=<%= resource[0].title %>  >
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputTopic">topic</label>
+              <select id="inputState" class="form-control" name="topic_id">
+            <% let array=["","Education","Animals","Sports","Videos"] %>
+            <% for(var i = 1;i < 5;i++){ %>
+              <% if(resource[0].topic_id == i){ %>
+              <option value="<%= i %>" selected="selected"><%= array[i] %></option>
+              <% }else{ %>
+              <option value="<%= i %>"><%= array[i] %></option>
+              <% }} %>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputImgUrl">Image URL</label>
+            <input type="text" class="form-control" id="inputImgUrl" placeholder="New Image URL" name="img_url" value=<%= resource[0].img_url %> >
+          </div>
+          <div class="form-group">
+            <label for="inputUrl">URL</label>
+            <input type="text" class="form-control" id="inputUrl" placeholder="New URL" name="url" value=<%= resource[0].url %> >
+          </div>
+          <div class="form-group">
+            <label for="inputDescription">Description</label>
+            <textarea class="form-control" id="inputDescription" rows="3" name="description"
+              placeholder="Description" ><%= resource[0].description %></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">submit</button>
+          <button type="button" class="btn btn-danger" id="button-cancel">Cancel</button>
+          <input type="hidden" name="resourceid" value=<%= resource[0].id %>>
+        </form>
+      </div>
+
+
+      <script src="/vendor/jquery-3.0.0.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"
+        integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script defer src="/scripts/network.js"></script>
+      <script defer src="/scripts/create.js"></script>
+
+  </body>
+
+  </html>

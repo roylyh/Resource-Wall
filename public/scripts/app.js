@@ -22,30 +22,125 @@ $("#row4").on("click",".view",function() {
   $(location).attr('href', `/resources/allresources/${resourceid}`);
 });
 
-$(() => {
-  $('#search').on('submit', (event) => {
-    event.preventDefault();
-    const searchTerm = $('#query').val();
-    console.log('search term', searchTerm);
+$("#row5").on("click",".view",function() {
+  console.log("resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/allresources/${resourceid}`);
+});
 
-    $.ajax(`/resources/search/${searchTerm}`)
-    .then((results) => {
-      console.log('back from server', results)
-      const $resourcesList = $('#resources');
-      $resourcesList.empty();
+$("#row6").on("click",".view",function() {
+  console.log("resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/allresources/${resourceid}`);
+});
 
-      for(const resource of results) {
-        const $resourceDiv = $('<div class="resource">');
-        const $title = $('<h2>').text(resource.title);
-        const $description = $('<p>').text(resource.description);
-        const $url = $('<p>').append($('<a>').attr('href', resource.url).text(resource.url));
-        const $ratings = $('<p>').text(`Ratings: ${resource.ratings}`);
-        const $likes = $('<p>').text(`Likes: ${resource.likes}`);
-        const $comments = $('<p>').text(`Comments: ${resource.comments}`);
+$("#row5").on("click",".edit",function() {
+  console.log("edit resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/editresource/${resourceid}`);
+});
 
-        $resourceDiv.append($title, $description, $url, $ratings, $likes, $comments);
-        $resourcesList.append($resourceDiv);
+$("#form-search").submit(function(event) {
+  event.preventDefault();
+  // console.log("search word:", $(this).children("input").val());
+  const searchword = $(this).children("input").val();
+  if (searchword.trim()) {
+    searchResource(searchword).then(
+
+      (resources) => {
+        $(".container").empty();
+        $("h1").text("Search Result");
+        let $resElement = "";
+        if (!resources.length) {
+          $resElement += "<p>No result<p>";
+        }
+        $resElement += `<div class="row">`;
+        resources.forEach(resource => {
+          $resElement += `
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><image href=${resource.img_url} height="100%" width="100%" /></svg>
+          <h5 class="text-center">${resource.title}</h5>
+          <div class="card-body">
+              <p class="card-text">${resource.description}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary view" resourceid=${resource.id}>View</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+        });
+        $resElement += `</div>`;
+        $(".container:first").html($resElement);
       }
-    });
-  });
+
+    );
+  }
+
+});
+
+
+$("#row5").on("click",".view",function() {
+  console.log("resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/allresources/${resourceid}`);
+});
+
+$("#row6").on("click",".view",function() {
+  console.log("resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/allresources/${resourceid}`);
+});
+
+$("#row5").on("click",".edit",function() {
+  console.log("edit resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/editresource/${resourceid}`);
+});
+
+$("#form-search").submit(function(event) {
+  event.preventDefault();
+  // console.log("search word:", $(this).children("input").val());
+  const searchword = $(this).children("input").val();
+  if (searchword.trim()) {
+    searchResource(searchword).then(
+
+      (resources) => {
+        $(".container").empty();
+        $("h1").text("Search Result");
+        let $resElement = "";
+        if (!resources.length) {
+          $resElement += "<p>No result<p>";
+        }
+        $resElement += `<div class="row">`;
+        resources.forEach(resource => {
+          $resElement += `
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><image href=${resource.img_url} height="100%" width="100%" /></svg>
+          <h5 class="text-center">${resource.title}</h5>
+          <div class="card-body">
+              <p class="card-text">${resource.description}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary view" resourceid=${resource.id}>View</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+        });
+        $resElement += `</div>`;
+        $(".container:first").html($resElement);
+      }
+
+    );
+  }
+
 });
