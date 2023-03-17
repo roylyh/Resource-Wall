@@ -10,6 +10,5 @@ $("#edit-resource-form").submit(function(event) {
 });
 
 $("#button-cancel").on("click",function() {
-  $("input,textarea").val("");
-  $("select").val("1");
+  location.reload();
 });
