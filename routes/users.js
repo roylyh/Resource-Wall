@@ -42,32 +42,34 @@ router.post('/login', (req, res) => {
   }
 });
 
-// router.post('/login', async (req, res) => {
-//   const { email, password } = req.body;
-//   if (!email || !password) {
-//     res.status(400).json({ message: 'Email and password are required' });
-//   } else {
-//     try {
-//       const user = await userQueries.getUserByEmail(email);
-//       if (!user) {
-//         res.status(400).json({ message: 'No user found' });
-//       } else {
-//         // manually compare passwords
-//         const isMatch = password === user.password;
-//         if (isMatch) {
-//           req.session.userId = user.id;
-//           console.log('Login successful');
-//           res.redirect('/views/homepage.ejs');
-//         } else {
-//           res.status(400).json({ message: 'Password is wrong' });
-//         }
-//       }
-//     } catch (err) {
-//       res.status(500).json({ error: err.message });
-//     }
-//   }
-// });
+router.post('/register', async(req, res) => {
+  const userId = req.session.userId;
+  console.log("userId:", userId);
+  try {
+    if (userId) {
+      const resUser1 = await userQueries.getUserById(userId);
+      if (resUser1) {
+        console.log("resUser is not ");
+        return res.redirect("/index");
+      }
+    }
+    
+    const user = {...req.body};
+    const resUser2 = await userQueries.getUserByEmail(user.email);
+    if (resUser2) {
+      console.log("resUser exists ");
+      return res.status(400).json({message: 'email exists!'});
+    }
 
+    const hashedPassword = bcrypt.hashSync(user.password, 10);
+    user.password = hashedPassword;
+    const resUser3 = await userQueries.addUser(user);
+    req.session.userId = resUser3[0].id;
+    res.json(resUser3);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+});
 
 router.post('/logout', (req, res) => {
   res.clearCookie("session").clearCookie("session.sig").redirect("/users/login");

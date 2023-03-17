@@ -1,82 +1,91 @@
-function getAllResourcesByTopic(topic_id, type) {
+const getAllResourcesByTopic = function(topic_id, type) {
   console.log("getAllResourcesByTopic");
   return $.ajax({
     url: "/resources/getResourcesByTopic/" + topic_id + "/" + type,
   });
-}
+};
 
-function getMyfavorites() {
+const getMyfavorites = function() {
   console.log("getMyfavorites");
   return $.ajax({
     url: "/resources/myfavorites",
   });
-}
+};
 
-function getMyresources() {
+const getMyresources = function() {
   console.log("getMyresources");
   return $.ajax({
     url: "/resources/myresources",
   });
-}
+};
 
-function goToResourceDetail(resourceid) {
+const goToResourceDetail = function(resourceid) {
   console.log("goToResourceDetail");
   return $.ajax({
     url: "/resources/allresources/" + resourceid,
   });
-}
+};
 
-function rateResource(resourceid, value) {
+const rateResource = function(resourceid, value) {
   console.log("getMyresources");
   return $.ajax({
     url: `/resources/rateresource/${resourceid}/${value}`,
   });
-}
+};
 
-function getComments(resourceid) {
+const getComments = function(resourceid) {
   console.log("getComments");
   return $.ajax({
     url: `/resources/allcomments/${resourceid}`,
   });
-}
+};
 
-function addComment(comment) {
+const addComment = function(data) {
   console.log("addComment");
   return $.ajax({
     method: "POST",
     url: "/resources/addcomment",
-    data: comment,
+    data,
   });
-}
+};
 
-function likeResource(resourceid) {
+const likeResource = function(resourceid) {
   console.log("likeResource");
   return $.ajax({
     url: `/resources/likeresource/${resourceid}`,
   });
-}
+};
 
-function createResource(data) {
+const createResource = function(data) {
   console.log("createResource");
   return $.ajax({
     method: "POST",
     url: `/resources/addresource`,
     data,
   });
-}
+};
 
-function searchResource(data) {
+const searchResource = function(data) {
   console.log("searchResource");
   return $.ajax({
     url: `/resources/search/${data}`
   });
-}
+};
 
-function updateResource(data) {
+const updateResource = function(data) {
   console.log("updateResource");
   return $.ajax({
     method: "POST",
     url: `/resources/updateresource`,
     data,
   });
-}
+};
+
+const loginByEmail = function(data) {
+  console.log("loginByEmail");
+  return $.ajax({
+    method: "POST",
+    url: `/users/login`,
+    data,
+  });
+};

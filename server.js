@@ -73,6 +73,14 @@ app.get('/createresource', (req, res) => {
   return res.render('submit-resource');
 });
 
+app.get('/login', (req, res) => {
+  return res.render('login');
+});
+
+app.get('/register', (req, res) => {
+  return res.render('register');
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

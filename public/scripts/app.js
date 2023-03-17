@@ -42,7 +42,6 @@ $("#row5").on("click",".edit",function() {
 
 $("#form-search").submit(function(event) {
   event.preventDefault();
-  // console.log("search word:", $(this).children("input").val());
   const searchword = $(this).children("input").val();
   if (searchword.trim()) {
     searchResource(searchword).then(
@@ -78,13 +77,26 @@ $("#form-search").submit(function(event) {
         $(".container:first").html($resElement);
 
         $("#row1").on("click",".view",function() {
-          console.log("resourceid:",$(this).attr("resourceid"));
           const resourceid = $(this).attr("resourceid");
           $(location).attr('href', `/resources/allresources/${resourceid}`);
         });
       }
-      
     );
   }
-  
+});
+
+
+$("#form-signin").submit(function(event) {
+  event.preventDefault();
+  $("#err-message").remove();
+  const urlencoded = $(this).serialize();
+  loginByEmail(urlencoded)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log("err:",err.responseJSON.message);
+      // $("#err-message").text(err.responseJSON.message);
+      $("h1").after(`<p id="err-message" style="color:red">${err.responseJSON.message}</p>`);
+    });
 });
