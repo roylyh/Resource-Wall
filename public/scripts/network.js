@@ -64,3 +64,10 @@ function createResource(data) {
     data,
   });
 }
+
+function searchResource(data) {
+  console.log("searchResource");
+  return $.ajax({
+    url: `/resources/search/${data}`
+  });
+}

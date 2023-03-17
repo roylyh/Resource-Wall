@@ -27,4 +27,6 @@ $(() => {
     });
   }
   $("#homeli").addClass("active");
+
 });
+
