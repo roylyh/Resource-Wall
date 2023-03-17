@@ -22,6 +22,24 @@ $("#row4").on("click",".view",function() {
   $(location).attr('href', `/resources/allresources/${resourceid}`);
 });
 
+$("#row5").on("click",".view",function() {
+  console.log("resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/allresources/${resourceid}`);
+});
+
+$("#row6").on("click",".view",function() {
+  console.log("resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/allresources/${resourceid}`);
+});
+
+$("#row5").on("click",".edit",function() {
+  console.log("edit resourceid:",$(this).attr("resourceid"));
+  const resourceid = $(this).attr("resourceid");
+  $(location).attr('href', `/resources/editresource/${resourceid}`);
+});
+
 $("#form-search").submit(function(event) {
   event.preventDefault();
   // console.log("search word:", $(this).children("input").val());
