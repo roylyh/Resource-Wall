@@ -14,10 +14,10 @@
       </li>
     </ul>
     <ul class="navbar-nav col-auto">
-      <li class="nav-item" id="search-field">
-        <form class="form-inline my-2 my-lg-0" id="form-search">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchword">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <li class="nav-item" id="search">
+        <form class="form-inline my-2 my-lg-0" action="/resources/search" method="get" id="search">
+          <input class="form-control mr-sm-2" type="search" id="query" name="query" placeholder="Search...">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
         </form>
       </li>
       <li class="nav-item">
@@ -27,6 +27,5 @@
         <a class="nav-link" href="#">Logout</a>
       </li>
     </ul>
-
   </div>
 </nav>
