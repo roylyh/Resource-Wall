@@ -54,7 +54,7 @@ $("#form-search").submit(function(event) {
         if (!resources.length) {
           $resElement += "<p>No result<p>";
         }
-        $resElement += `<div class="row">`;
+        $resElement += `<div class="row" id="row1">`;
         resources.forEach(resource => {
           $resElement += `
         <div class="col-md-4">
@@ -76,6 +76,12 @@ $("#form-search").submit(function(event) {
         });
         $resElement += `</div>`;
         $(".container:first").html($resElement);
+
+        $("#row1").on("click",".view",function() {
+          console.log("resourceid:",$(this).attr("resourceid"));
+          const resourceid = $(this).attr("resourceid");
+          $(location).attr('href', `/resources/allresources/${resourceid}`);
+        });
       }
       
     );
