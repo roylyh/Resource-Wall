@@ -53,14 +53,14 @@ app.use('/login', loginRoutes);
 
 app.get('/', (req, res) => {
   if (!req.session.userId) {
-    return res.render("/users/login");
+    return res.render("login");
   }
   return res.render('index');
 });
 
 app.get('/index', (req, res) => {
   if (!req.session.userId) {
-    return res.render("/login");
+    return res.render("login");
   }
   return res.render('index');
 });
