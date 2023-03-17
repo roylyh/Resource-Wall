@@ -1,6 +1,6 @@
 # Resource Wall Project
 
-Resource Wall was our midterm project of choice. Pinterest for learners.  It allows the user to save resouces such as tutorials, blogs, and videos in a central place that can be accessed by any user.
+Resource Wall was our midterm project of choice. Pinterest for learners.  It allows the user to save resouces such as tutorials, blogs, and videos in a central place that can be accessed by any user. Built with Node, Express, Bootstrap, PostgreSQL
 
 ## Warnings & Tips
 
