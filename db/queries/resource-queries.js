@@ -124,7 +124,7 @@ const searchResources = (topicOrDescription, userId) => {
 exports.searchResources = searchResources;
 
 
-const getSingleResource = (resource_id) => {
+const getSingleResource = (resource_id, userId) => {
   // let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic from resources x join topics y on x.topic_id = y.id where x.id = $1; `;
   let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic, (select rating from ratings where resource_id = $1 and user_id = $2) as user_rating, (select liked from likes where resource_id = $1 and user_id = $2) as user_like from resources x join topics y on x.topic_id = y.id where x.id = $1;`;
   const queryParam = [ resource_id, userId ];

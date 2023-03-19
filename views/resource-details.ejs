@@ -35,7 +35,7 @@
 
 <body>
 	<%- include('partials/_header') %>
-	<h1 style="text-align: center;">Resource Detail</h1>
+	<h1 style="text-align: center;" resourceid=<%=resource[0].id %> >Resource Detail</h1>
 
 	<div class="container">
 		<div class="card">
@@ -78,6 +78,9 @@
 						</p>
 
 						<div class="star-rating">
+						<% if(resource[0].user_rating) { %>
+							<%= resource[0].user_rating %>&nbsp;<span class="fa-solid fa-star"></span>
+						<% } else { %>
 							<span class="fa-regular fa-star" data-rating="1"></span>
 							<span class="fa-regular fa-star" data-rating="2"></span>
 							<span class="fa-regular fa-star" data-rating="3"></span>
@@ -85,8 +88,15 @@
 							<span class="fa-regular fa-star" data-rating="5"></span>&nbsp;&nbsp;
 							<input type="hidden" name="rating-value" class="rating-value">&nbsp;&nbsp;
 							<button class="rate btn btn-primary btn-sm" type="button" resourceid=<%=resource[0].id %>>rate</button>
+						<% } %>
+
+						<% if(resource[0].user_like) { %>
+							<span class="fa fa-heart float-right" style="color: red;"></span>
+						<% } else { %>
 							<button class="like btn btn-lg float-right" type="button" resourceid=<%=resource[0].id %>><span
-									class="fa fa-heart"></span></button>
+								class="fa fa-heart"></span></button>
+						<% } %>
+						
 						</div>
 						<hr>
 						<h4 id="comment-title">Comments</h4>

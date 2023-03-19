@@ -73,9 +73,11 @@ router.get('/allcomments/:resource_id', (req, res) => {
 });
 
 router.get('/allresources/:resource_id', async(req, res) => {
+  const userId = req.session.userId;
+  console.log("userId:", userId);
   try {
     console.log("getSingleResource");
-    const resource = await resourceQueries.getSingleResource(req.params.resource_id);
+    const resource = await resourceQueries.getSingleResource(req.params.resource_id, userId);
     const templateVar = {resource};
     console.log("templateVar:", templateVar);
     res.render("resource-details",templateVar);

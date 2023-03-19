@@ -1,5 +1,5 @@
 $(() => {
-  const resourceid = $("button.rate").attr("resourceid");
+  const resourceid = $("h1").attr("resourceid");
   loadComments(resourceid);
 }
 );
@@ -42,6 +42,7 @@ const SetRatingStar = function() {
 
 $("button.rate").on("click", function() {
   rateResource($(this).attr('resourceid'),$rating_value.attr("value"));
+  window.location.reload();
 });
 
 $("#comment-form").submit(function(event) {
@@ -59,4 +60,5 @@ $("#comment-form").submit(function(event) {
 $("button.like").on("click", function() {
   likeResource($(this).attr('resourceid'));
   $(this).addClass("checked");
+  window.location.reload();
 });
