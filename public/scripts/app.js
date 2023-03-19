@@ -1,3 +1,8 @@
+$(() => {
+  $("#p-username").text(decodeURI(document.cookie.split("; ").find((row) => row.startsWith("userName="))?.split("=")[1]));
+}
+);
+
 $("#row1").on("click",".view",function() {
   console.log("resourceid:",$(this).attr("resourceid"));
   const resourceid = $(this).attr("resourceid");

@@ -12,3 +12,8 @@ $("#edit-resource-form").submit(function(event) {
 $("#button-cancel").on("click",function() {
   location.reload();
 });
+
+$(() => {
+  $("#p-username").text(decodeURI(document.cookie.split("; ").find((row) => row.startsWith("userName="))?.split("=")[1]));
+}
+);

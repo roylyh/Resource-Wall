@@ -1,4 +1,8 @@
 $(() => {
+  $(() => {
+    $("#p-username").text(decodeURI(document.cookie.split("; ").find((row) => row.startsWith("userName="))?.split("=")[1]));
+  }
+  );
   const resourceid = $("h1").attr("resourceid");
   loadComments(resourceid);
 }

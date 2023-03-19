@@ -16,4 +16,5 @@ $("#button-cancel").on("click",function() {
 
 $(()=>{
   $("#mycreateli").addClass("active");
+  $("#p-username").text(decodeURI(document.cookie.split("; ").find((row) => row.startsWith("userName="))?.split("=")[1]));
 });

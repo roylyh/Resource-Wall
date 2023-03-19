@@ -6,7 +6,7 @@ const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
-
+// const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 8080;
@@ -34,19 +34,17 @@ app.use(cookieSession({
   name: 'session',
   keys: ['key1']
 }));
-
+// app.use(cookieParser());
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require('./routes/users');
 const resourcesRoutes = require('./routes/resources');
-// const logoutRoutes = require('./routes/logout')
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/users', usersRoutes);
 app.use('/resources', resourcesRoutes);
-// app.use('/logout', logoutRoutes)
 // Note: mount other resources here, using the same pattern above
 
 app.get('/', (req, res) => {

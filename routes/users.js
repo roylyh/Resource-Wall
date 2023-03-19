@@ -25,6 +25,7 @@ router.post('/login', (req, res) => {
         if (user) {
           if (bcrypt.compareSync(password, user.password)) {
             req.session.userId = user.id;
+            res.cookie('userName', user.name);
             console.log("login successfully");
             res.json({message: 'Login successfully'});
           } else {
@@ -64,8 +65,10 @@ router.post('/register', async(req, res) => {
   }
 });
 
-router.post('/logout', (req, res) => {
-  res.clearCookie("session").clearCookie("session.sig").redirect("/users/login");
+router.get('/logout', (req, res) => {
+  console.log("logout");
+  req.session = null;
+  res.clearCookie("userName").redirect("/");
 });
 
 module.exports = router;
