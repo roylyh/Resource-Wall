@@ -24,9 +24,9 @@ router.post('/login', (req, res) => {
       (user) => {
         if (user) {
           if (bcrypt.compareSync(password, user.password)) {
-            req.session.userID = user.id;
+            req.session.userId = user.id;
             console.log("login successfully");
-            res.redirect("index");
+            res.json({message: 'Login successfully'});
           } else {
             res.status(400).json({message: 'Password is wrong!'});
           }
@@ -46,13 +46,6 @@ router.post('/register', async(req, res) => {
   const userId = req.session.userId;
   console.log("userId:", userId);
   try {
-    if (userId) {
-      const resUser1 = await userQueries.getUserById(userId);
-      if (resUser1) {
-        console.log("resUser is not ");
-        return res.redirect("/index");
-      }
-    }
     
     const user = {...req.body};
     const resUser2 = await userQueries.getUserByEmail(user.email);

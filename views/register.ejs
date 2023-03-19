@@ -16,7 +16,7 @@
   
 </head>
   <body class="text-center">
-    <form class="form-signin" id="form-signin">
+    <form class="form-signin" id="form-register">
       <img
         class="mb-4"
         src="/img/register.jpg"
@@ -31,7 +31,7 @@
         name="name"
         id="inputName"
         class="form-control"
-        placeholder="User name"
+        placeholder="User name" value="sss"
         required
         autofocus
       />
@@ -41,7 +41,7 @@
         name="email"
         id="inputEmail"
         class="form-control"
-        placeholder="Email address"
+        placeholder="Email address" value="sss@22.com"
         required
       />
       <label for="inputPassword" class="sr-only">Password</label>
@@ -50,12 +50,14 @@
         name="password"
         id="inputPassword"
         class="form-control"
-        placeholder="Password"
+        placeholder="Password" value="password"
         required
       />
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Register
-      </button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+          Register
+        </button>
+        <p>Already have a user. Please <a href="/login">login</a> firstly.</p>
+
     </form>
 
     <script src="/vendor/jquery-3.0.0.js"></script>

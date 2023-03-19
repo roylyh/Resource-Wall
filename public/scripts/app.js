@@ -93,10 +93,25 @@ $("#form-signin").submit(function(event) {
   loginByEmail(urlencoded)
     .then((res)=>{
       console.log(res);
+      $(location).attr('href', `/`);
     })
     .catch((err)=>{
       console.log("err:",err.responseJSON.message);
-      // $("#err-message").text(err.responseJSON.message);
+      $("h1").after(`<p id="err-message" style="color:red">${err.responseJSON.message}</p>`);
+    });
+});
+
+$("#form-register").submit(function(event) {
+  event.preventDefault();
+  $("#err-message").remove();
+  const urlencoded = $(this).serialize();
+  registerUser(urlencoded)
+    .then((res)=>{
+      console.log(res);
+      $(location).attr('href', `/`);
+    })
+    .catch((err)=>{
+      console.log("err:",err.responseJSON.message);
       $("h1").after(`<p id="err-message" style="color:red">${err.responseJSON.message}</p>`);
     });
 });

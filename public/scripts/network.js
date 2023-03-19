@@ -89,3 +89,12 @@ const loginByEmail = function(data) {
     data,
   });
 };
+
+const registerUser = function(data) {
+  console.log("registerUser");
+  return $.ajax({
+    method: "POST",
+    url: `/users/register`,
+    data,
+  });
+};

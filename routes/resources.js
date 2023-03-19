@@ -162,7 +162,8 @@ router.get('/getResourcesByTopic/:topic_id/:type', (req, res) => {
 });
 
 router.get('/editresource/:resourcd_id', async(req, res) => {
-  const resource = await resourceQueries.getSingleResource(req.params.resourcd_id);
+  const userId = req.session.userId;
+  const resource = await resourceQueries.getSingleResource(req.params.resourcd_id, userId);
   console.log("resources:",resource);
   const templateVar = {resource};
   res.render("resource-edit",  templateVar);

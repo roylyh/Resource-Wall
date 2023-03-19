@@ -89,17 +89,6 @@ const addComment = (comment, userId) => {
 
 exports.addComment = addComment;
 
-// const searchResources = (searchword) => {
-//   const queryString = `select * from resources where title like $1;`;
-//   const queryParam = ['%' + searchword + '%'];
-//   return db.query(queryString,queryParam,(res) => {
-//     return res.rows;
-//   }
-//   );
-// };
-
-// exports.searchResources = searchResources;
-
 const getResourcesByTopic = (topic) => {
   let queryString = `select * from resources where topic_id = $1 `;
   const queryParam = [ topic.topic_id ];
@@ -136,8 +125,9 @@ exports.searchResources = searchResources;
 
 
 const getSingleResource = (resource_id) => {
-  let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic from resources x join topics y on x.topic_id = y.id where x.id = $1; `;
-  const queryParam = [ resource_id ];
+  // let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic from resources x join topics y on x.topic_id = y.id where x.id = $1; `;
+  let queryString = `select x.*, (select cast(avg(rating) as decimal(38, 1)) from ratings where resource_id = $1) as rating, y.name as topic, (select rating from ratings where resource_id = $1 and user_id = $2) as user_rating, (select liked from likes where resource_id = $1 and user_id = $2) as user_like from resources x join topics y on x.topic_id = y.id where x.id = $1;`;
+  const queryParam = [ resource_id, userId ];
 
   return db.query(queryString,queryParam,(res) => {
     return res.rows;
